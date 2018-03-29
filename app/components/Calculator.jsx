@@ -1,5 +1,36 @@
 import React from 'react';
+// questions for Kelly:
+// how can I separate the forms into another component? I got confused on how to pass data back and forth to update the result -- see UserInput component below
+// how come destructuring on this.setState isnt working for me?
+// I was initially using onSubmit for buttons then changed it to onClick -- why wont it work with onSubmit?
 
+// class UserInput extends React.Component {
+//   constructor(props) {
+//     super(props);
+
+//     this.state = {
+//       number: ''
+//     }
+
+//     this.handleChange = this.handleChange.bind(this);
+//   }     
+//   render() {
+//     return (
+//       <form className='column'>
+//         <label htmlFor='number'>
+//           {this.props.label}
+//         </label>
+//         <input
+//           placeholder='number'
+//           type='text'
+//           value={this.state.number}
+//           autoComplete='off'
+//           onChange={this.handleChange}
+//         />
+//       </form>       
+//     )
+//   }
+// }
 class Calculator extends React.Component {
   constructor(props){
     super(props);
@@ -15,7 +46,8 @@ class Calculator extends React.Component {
     this.handleAddition = this.handleAddition.bind(this);
     this.handleSubtraction = this.handleSubtraction.bind(this);
     this.handleMultiplication = this.handleMultiplication.bind(this);
-    this.handleDivision = this.handleDivision.bind(this);        
+    this.handleDivision = this.handleDivision.bind(this);
+    this.clearInput = this.clearInput.bind(this);
   }
   handleFirst(e) {
     let value = e.target.value ? parseInt(e.target.value) : "";;
@@ -70,7 +102,17 @@ class Calculator extends React.Component {
         result: value
       }
     });     
-  }      
+  }
+  clearInput(e) {
+    e.preventDefault();
+    this.setState(function() {
+      return {
+        result: 0,
+        firstInput: '',
+        secondInput: ''
+      }
+    })    
+  }
   render(){
     return (
       <div className='container'>
@@ -120,9 +162,12 @@ class Calculator extends React.Component {
           <button onClick={this.handleDivision}
             className='button'>
               /
-          </button>                              
-        </div>        
-
+          </button>
+          <button onClick={this.clearInput}
+            className='button'>
+              Clear
+          </button>          
+        </div>
       </div>
     );
   }
