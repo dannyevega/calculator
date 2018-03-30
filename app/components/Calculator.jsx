@@ -1,36 +1,5 @@
 import React from 'react';
-// questions for Kelly:
-// how can I separate the forms into another component? I got confused on how to pass data back and forth to update the result -- see UserInput component below
-// how come destructuring on this.setState isnt working for me?
-// I was initially using onSubmit for buttons then changed it to onClick -- why wont it work with onSubmit?
 
-// class UserInput extends React.Component {
-//   constructor(props) {
-//     super(props);
-
-//     this.state = {
-//       number: ''
-//     }
-
-//     this.handleChange = this.handleChange.bind(this);
-//   }     
-//   render() {
-//     return (
-//       <form className='column'>
-//         <label htmlFor='number'>
-//           {this.props.label}
-//         </label>
-//         <input
-//           placeholder='number'
-//           type='text'
-//           value={this.state.number}
-//           autoComplete='off'
-//           onChange={this.handleChange}
-//         />
-//       </form>       
-//     )
-//   }
-// }
 class Calculator extends React.Component {
   constructor(props){
     super(props);
@@ -50,70 +19,39 @@ class Calculator extends React.Component {
     this.clearInput = this.clearInput.bind(this);
   }
   handleFirst(e) {
-    let value = e.target.value ? parseInt(e.target.value) : "";;
-
-    this.setState(function() {
-      return {
-        firstInput: value
-      }
-    });
+    let firstInput = e.target.value ? parseInt(e.target.value) : "";;
+    this.setState({ firstInput });
   }
   handleSecond(e) {
-    let value = e.target.value ? parseInt(e.target.value) : "";;
-
-    this.setState(function() {
-      return {
-        secondInput: value
-      }
-    });
+    let secondInput = e.target.value ? parseInt(e.target.value) : "";;
+    this.setState({ secondInput });
   }
   handleAddition(e) {
     e.preventDefault();
-    const value = this.state.firstInput + this.state.secondInput;
-    this.setState(function() {
-      return {
-        result: value
-      }
-    });    
+    const result = this.state.firstInput + this.state.secondInput;
+    this.setState({ result });
   }
   handleSubtraction(e) {
     e.preventDefault();
-    const value = this.state.firstInput - this.state.secondInput;
-    this.setState(function() {
-      return {
-        result: value
-      }
-    });        
+    const result = this.state.firstInput - this.state.secondInput;
+    this.setState({ result });       
   }
   handleMultiplication(e) {
     e.preventDefault();
-    const value = this.state.firstInput * this.state.secondInput;
-    this.setState(function() {
-      return {
-        result: value
-      }
-    });     
+    const result = this.state.firstInput * this.state.secondInput;
+    this.setState({ result });     
   }
   handleDivision(e) {
     e.preventDefault();
-    const value = this.state.firstInput / this.state.secondInput;
-    this.setState(function() {
-      return {
-        result: value
-      }
-    });     
+    const result = this.state.firstInput / this.state.secondInput;
+    this.setState({ result });     
   }
   clearInput(e) {
     e.preventDefault();
-    this.setState(function() {
-      return {
-        result: 0,
-        firstInput: '',
-        secondInput: ''
-      }
-    })    
+    this.setState({ result: 0, firstInput: '', secondInput: '' });           
   }
   render(){
+    const { firstInput, secondInput, result } = this.state;
     return (
       <div className='container'>
         <div className='column'>
